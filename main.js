@@ -87,7 +87,16 @@ const transactions = [
     paymentMethod: 'credit',
     customer: 'Neal Stephenson',
     items: [
-      { name: 'kilobyte', price: 1024.00 }
+      { name: 'kilobyte', price: 1024.00 },
+      // { name: 'Floppy Disk', price: -0.10 },
+      // { name: 'Floppy Disk', price: -0.10 },
+      // { name: 'Floppy Disk', price: -0.10 },
+      // { name: 'Floppy Disk', price: -0.10 },
+      // { name: 'Floppy Disk', price: -0.10 },
+      // { name: 'Floppy Disk', price: -0.10 },
+      // { name: 'Floppy Disk', price: -0.10 },
+      // { name: 'Floppy Disk', price: -0.10 }
+
     ]
   },
   {
@@ -252,66 +261,86 @@ console.log( 'The vendors are:', allVendors );
   - The assembled array should be made up of strings, not full `transaction` objects.
   - Make sure that the resulting array *does not* include any duplicates.
 */
-const uniqueCustomers = [];
+
+var uniqueCustomers = [];
+var customers = []
 
 transactions.forEach(function(transaction) {
   let customer = transaction['customer'];
   if (customer) {
-    uniqueCustomers.push(customer);
+    customers.push(customer);
+    uniqueCustomers = customers.filter(function(customer, index, uniqueCustomers) {
+      return uniqueCustomers.indexOf(customer) == index;
+    })
   }
 })
 
 console.log( 'The unique customers are:', uniqueCustomers );
 
 
-// // --------------------------------------------------
-// // QUESTION 07
-// // --------------------------------------------------
-// /*
-//   Create an array of information about the 'sale' transactions which include 5 or more items.
-//
-//   The array should resemble the following:
-//   [ { name: 'Customer Name', numItems: 5 }, ... ]
-//
-//   HINT(S):
-//   - There may be more than 1 'sale' that includes 5 or more items.
-//   - Individual transactions do not have either `name` or `numItems` properties, we'll have to add them to the output.
-// */
-// const bigSpenders;
-//
-// console.log( 'The "big spenders" are:', bigSpenders );
-//
-//
-// // --------------------------------------------------
-// // QUESTION 08
-// // --------------------------------------------------
-// /*
-//   Calculate the sum of the *first* 'sale' transaction.
-//
-//   HINT(S):
-//   - Transactions don't have 'prices', but their 'items' do!
-// */
-// const sumFirstSale;
-//
-// console.log( 'The sum of the first sale items is:', sumFirstSale );
-//
-//
-// // --------------------------------------------------
-// // QUESTION 09
-// // --------------------------------------------------
-// /*
-//   Calculate the sum of *all* 'purchase' transactions.
-//
-//   HINT(S):
-//   - Your solution to 'QUESTION 08' is a good starting point!
-//   - Make sure to include 'price' information from *all* purchases.
-// */
-//
-// const sumPurchases;
-//
-// console.log( 'The sum of all purchases is:', sumPurchases );
-//
-//
+// --------------------------------------------------
+// QUESTION 07
+// --------------------------------------------------
+/*
+  Create an array of information about the 'sale' transactions which include 5 or more items.
+
+  The array should resemble the following:
+  [ { name: 'Customer Name', numItems: 5 }, ... ]
+
+  HINT(S):
+  - There may be more than 1 'sale' that includes 5 or more items.
+  - Individual transactions do not have either `name` or `numItems` properties, we'll have to add them to the output.
+*/
+
+const bigSpenders = [];
+
+numSales.forEach(function(saleTransaction) {
+  if (saleTransaction['items'].length > 5) {
+    bigSpenders.push({ 'name': saleTransaction['customer'], 'numItems': saleTransaction['items'].length })
+  }
+})
+
+console.log( 'The "big spenders" are:', bigSpenders );
+
+
+// --------------------------------------------------
+// QUESTION 08
+// --------------------------------------------------
+/*
+  Calculate the sum of the *first* 'sale' transaction.
+
+  HINT(S):
+  - Transactions don't have 'prices', but their 'items' do!
+*/
+
+var firstSale = numSales[0];
+var prices = [];
+var sumFirstSale;
+
+firstSale['items'].forEach(function(item) {
+  prices.push(item['price']);
+  sumFirstSale = prices.reduce(function(a, b) { return a + b });
+})
+
+console.log( 'The sum of the first sale items is:', sumFirstSale );
+
+
+// --------------------------------------------------
+// QUESTION 09
+// --------------------------------------------------
+/*
+  Calculate the sum of *all* 'purchase' transactions.
+
+  HINT(S):
+  - Your solution to 'QUESTION 08' is a good starting point!
+  - Make sure to include 'price' information from *all* purchases.
+*/
+
+const sumPurchases;
+
+console.log( 'The sum of all purchases is:', sumPurchases );
+
+
 // // --------------------------------------------------
 // // QUESTION 10
 // // --------------------------------------------------
