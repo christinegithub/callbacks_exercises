@@ -408,16 +408,35 @@ console.log( 'The most items sold in a single transaction is:', mostItems );
 
 var sumOfSmallestPurchase;
 var numItems = [];
-var prices = [];
+//
+// numPurchases.forEach(function(purchaseTransaction) {
+//   var items = purchaseTransaction['items'];
+//   numItems.push(items.length);
+//   numItems.sort();
+//   if (items.length == numItems[0]) {
+//     var prices = [];
+//     console.log(purchaseTransaction);
+//     items.forEach(function(item) {
+//       prices.push(item['price']);
+//       console.log(prices)
+//       sumOfSmallestPurchase = prices.reduce(function(a, b) { return a + b });
+//     })
+//   }
+// })
+//
 
-numPurchases.forEach(function(purchaseTransaction) {
-  numItems.push(purchaseTransaction['items'].length);
-  numItems.sort();
-  if (purchaseTransaction['items'].length == numItems[0]) {
-    purchaseTransaction['items'].forEach(function(item) {
-      prices.push(item['price']);
-      sumOfSmallestPurchase = prices.reduce(function(a, b) { return a + b });
-    })
+// numPurchases.sort((a, b) => a.items.length - b.items.length)
+// sum = numPurchases[0].items.reduce((total, item) => total += item.price, 0)
+// console.log(sum)
+
+var smallestTransaction = numPurchases[0];
+
+numPurchases.forEach(transaction => {
+  if (transaction.items.length < smallestTransaction.items.length) {
+    smallestTransaction = transaction;
   }
 })
+
+var sumOfSmallestPurchase = smallestTransaction.items.reduce((total, item) => total += item.price, 0)
+
 console.log( 'The sum of the smallest purchase is:', sumOfSmallestPurchase );
