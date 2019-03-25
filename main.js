@@ -336,43 +336,72 @@ console.log( 'The sum of the first sale items is:', sumFirstSale );
   - Make sure to include 'price' information from *all* purchases.
 */
 
-const sumPurchases;
+var sumPurchases;
+var prices = [];
 
+numPurchases.forEach(function(purchaseTransaction) {
+    purchaseTransaction['items'].forEach(function(item) {
+    prices.push(item['price']);
+    sumPurchases = prices.reduce(function(a, b) { return a + b });
+  })
+})
+
+console.log(prices);
 console.log( 'The sum of all purchases is:', sumPurchases );
 
 
-// // --------------------------------------------------
-// // QUESTION 10
-// // --------------------------------------------------
-// /*
-//   Calculate the company's net profit.
+// --------------------------------------------------
+// QUESTION 10
+// --------------------------------------------------
+/*
+  Calculate the company's net profit.
+
+  This number will be positive if the sum of the sales is greater than the amount spent on purchases.
+
+  Otherwise, this number will be negative.
+
+  HINT(S):
+  - Unlike 'QUESTION 08' and 'QUESTION 09', here we're interested in both 'sale' and 'purchase' transactions.
+*/
+
+var netProfit;
+var prices = [];
+
+transactions.forEach(function(transaction) {
+  transaction['items'].forEach(function(item) {
+    prices.push(item['price']);
+    netProfit = prices.reduce(function(a, b) { return a + b });
+  })
+})
+
+console.log( 'The net profit is:', netProfit );
+
+
+// --------------------------------------------------
+// QUESTION 11
+// --------------------------------------------------
+/*
+  Calculate the most items sold as part of single transaction.
+
+  HINTS:
+  - The result of this calculation should be a number (not an array, object, or other data type).
+*/
+const mostItems;
+
+console.log( 'The most items sold in a single transaction is:', mostItems );
+
+
+// const bigSpenders = [];
 //
-//   This number will be positive if the sum of the sales is greater than the amount spent on purchases.
+// numSales.forEach(function(saleTransaction) {
+//   if (saleTransaction['items'].length > 5) {
+//     bigSpenders.push({ 'name': saleTransaction['customer'], 'numItems': saleTransaction['items'].length })
+//   }
+// })
 //
-//   Otherwise, this number will be negative.
-//
-//   HINT(S):
-//   - Unlike 'QUESTION 08' and 'QUESTION 09', here we're interested in both 'sale' and 'purchase' transactions.
-// */
-// const netProfit;
-//
-// console.log( 'The net profit is:', netProfit );
-//
-//
-// // --------------------------------------------------
-// // QUESTION 11
-// // --------------------------------------------------
-// /*
-//   Calculate the most items sold as part of single transaction.
-//
-//   HINTS:
-//   - The result of this calculation should be a number (not an array, object, or other data type).
-// */
-// const mostItems;
-//
-// console.log( 'The most items sold in a single transaction is:', mostItems );
-//
-//
+// console.log( 'The "big spenders" are:', bigSpenders );
+
+
 // // --------------------------------------------------
 // // QUESTION 12
 // // --------------------------------------------------
